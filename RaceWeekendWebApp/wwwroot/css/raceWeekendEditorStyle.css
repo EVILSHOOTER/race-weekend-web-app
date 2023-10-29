@@ -1,0 +1,137 @@
+﻿.question_title {
+    margin-top: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#input_session_name {
+    width: 500px;
+}
+
+/* question 1 */
+.tyreTable {
+    border: 1px solid black;
+}
+
+.tyreTable th, .tyreset_number, .returns_number {
+    text-align: center;
+}
+
+/* question 2 */
+#question2_section {
+}
+
+.session_container {
+    background-color: #f5f5f5;
+    padding: 5px 5px 5px 5px;
+    margin-top: 1rem;
+    width: 200px;
+    border: 1px solid #636363;
+    border-radius: 3px;
+    /*display: inline-block;*/
+}
+
+.draggable {
+    padding: 5px;
+    margin: 2px;
+    background-color: white;
+    border: 1px solid #636363;
+    border-radius: 5px;
+    cursor: move;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-weight: bold;
+}
+
+.draggable:hover {
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+/*
+.draggable:active {
+    box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.25);
+    transform: scale(0.95);
+}
+*/
+
+.draggable.dragging { /* no space between to pick elements with BOTH classes */
+    opacity: 0.5;
+}
+
+.free {
+    background-color: #61c702;
+}
+
+.qual {
+    background-color: #d98911;
+}
+
+.container_buttons {
+    width: 200px;
+    /*display: inline-block;*/
+}
+
+.container_buttons button {
+    width: 100%;
+}
+
+/* question 3 */
+.session_table {
+    width: 60%;
+}
+
+.session_table th, .session_table td {
+    text-align: center;
+}
+
+.session_tyresets_table {
+    width: 100%;
+}
+
+.free_used_tyresets_table {
+    width: 100%;
+}
+
+.session_display {
+    border: 1px solid black;
+    border-radius: 4px;
+    border-collapse: collapse;
+}
+
+.session_display th, .session_display td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.free_used_tyresets_table { /* the Free/Used tables in the overview table */
+    table-layout: fixed;
+}
+
+.free_used_tyresets_table, .free_used_tyresets_table th, .free_used_tyresets_table td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+/* the Used columns of the overview table */
+/*
+    .used_number {
+      width: 90%;
+      text-align: center;
+    }
+    */
+
+.available_tyresets_table {
+    width: 100%;
+}
+
+.available_tyresets_table, .available_tyresets_table th, .available_tyresets_table td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+/*
+    .overview_returns_number td {
+      width: 100%;
+    }
+    */

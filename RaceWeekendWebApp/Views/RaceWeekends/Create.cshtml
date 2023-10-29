@@ -1,0 +1,266 @@
+﻿@model RaceWeekendWebApp.Models.RaceWeekend
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Create a new race weekend</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="form_Edit" style="display: none;" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input id="form_Name" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoftTyreSets" class="control-label"></label>
+                <input id="form_SoftTyreSets" asp-for="SoftTyreSets" class="form-control" />
+                <span asp-validation-for="SoftTyreSets" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MediumTyreSets" class="control-label"></label>
+                <input id="form_MediumTyreSets" asp-for="MediumTyreSets" class="form-control" />
+                <span asp-validation-for="MediumTyreSets" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HardTyreSets" class="control-label"></label>
+                <input id="form_HardTyreSets" asp-for="HardTyreSets" class="form-control" />
+                <span asp-validation-for="HardTyreSets" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sessions" class="control-label"></label>
+                <input id="form_Sessions" asp-for="Sessions" class="form-control" />
+                <span asp-validation-for="Sessions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FreeReturnTyreSets" class="control-label"></label>
+                <input id="form_FreeReturnTyreSets" asp-for="FreeReturnTyreSets" class="form-control" />
+                <span asp-validation-for="FreeReturnTyreSets" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QualifyingReturnTyreSets" class="control-label"></label>
+                <input id="form_QualifyingReturnTyreSets" asp-for="QualifyingReturnTyreSets" class="form-control" />
+                <span asp-validation-for="QualifyingReturnTyreSets" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <!-- MVP completion example -->
+                <label asp-for="JSONSessionData" class="control-label"></label>
+                <input id="form_JSONSessionData" asp-for="JSONSessionData" class="form-control" />
+                <span asp-validation-for="JSONSessionData" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- The HTML from the Edit page -->
+<div>
+    <div>
+        <p class="question_title">What would you like to name this Race weekend as?</p>
+        <input id="input_session_name" type="text" />
+    </div>
+
+    <div>
+        <p class="question_title">0. Load - Would you like to load a pre-set race weekend?</p>
+
+        <input type="file" id="load_weekend_file" name="load_weekend_file">
+        <!-- <button id="load_weekend">Load race weekend</button> -->
+
+        <span id="0-dangertext" class="text-danger"></span>
+    </div>
+
+    <div>
+        <p class="question_title">1. Tyre sets - How many of each tyre set would you like?</p>
+        <table class="tyreTable">
+            <tr>
+                <th style="background-color: #ff0000">Soft</th>
+                <th style="background-color: #ffff00">Medium</th>
+                <th style="background-color: #f0f0f0">Hard</th>
+            </tr>
+            <tr>
+                <td><input class="tyreset_number" type="number" value=0 /></td>
+                <td><input class="tyreset_number" type="number" value=0 /></td>
+                <td><input class="tyreset_number" type="number" value=0 /></td>
+            </tr>
+        </table>
+
+        <span id="1-dangertext" class="text-danger"></span>
+    </div>
+
+    <div id="question2_section">
+        <p class="question_title">2. Sessions - What sessions would you like for this weekend, and in what order?</p>
+        <div class="container_buttons">
+            <button class="session_button" style="background-color: #61c702"> Add Free session </button>
+            <button class="session_button" style="background-color: #d98911"> Add Qualifying session </button>
+            <button class="session_button" style="background-color: #ff4d4d"> Remove latest session </button>
+        </div>
+        <div class="session_container">
+            <p class="sessionBlock free draggable" draggable="true">Free session 1</p>
+            <p class="sessionBlock free draggable" draggable="true">Free session 2</p>
+            <p class="sessionBlock free draggable" draggable="true">Free session 3</p>
+            <p class="sessionBlock qual draggable" draggable="true">Qualifying</p>
+        </div>
+
+        <span id="2-dangertext" class="text-danger"></span>
+    </div>
+
+    <div>
+        <p class="question_title">3. Returns - How many tyre sets would you like returned for the sessions?</p>
+        <p>Free Practice: <input id="free_returns" class="returns_number" type="number" value=0 /></p>
+        <p>Qualifying: <input id="qual_returns" class="returns_number" type="number" value=0 /></p>
+
+        <span id="3-dangertext" class="text-danger"></span>
+    </div>
+
+    <div>
+        <p class="question_title">4. Session Overview - Confirm how tyre sets are used and returned across the sessions.</p>
+
+        <button id="generate_overview">Generate new weekend overview</button>
+
+        <table class="session_table">
+            <tr>
+                <th>Session</th>
+                <th>Tyre sets - Availability</th>
+            </tr>
+
+            <tr id="session_display_template" class="session_display">
+                <td class="session_name" style="background-color: #61c702">Free session 1</td>
+                <td>
+                    <!-- this will contain the table for displaying free/used tyre sets -->
+                    <table class="session_tyresets_table">
+                        <tr>
+                            <th class="session_table_name" style="background-color: #ff2b2b"> Soft </th>
+                            <th class="session_table_name" style="background-color: #fcba03"> Medium </th>
+                            <th class="session_table_name" style="background-color: #f0f0f0"> Hard </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <table class="free_used_tyresets_table">
+                                    <tr> <th> Free </th> <th> Used </th> </tr>
+                                    <tr> <td class="free_number"> 0 </td> <td class="used_number"> 0 </td> </tr>
+                                </table>
+                            </th>
+                            <th>
+                                <table class="free_used_tyresets_table">
+                                    <tr> <th> Free </th> <th> Used </th> </tr>
+                                    <tr> <td class="free_number"> 0 </td> <td class="used_number"> 0 </td> </tr> <!-- <input class="used_number" type="number" value=0 /> -->
+                                </table>
+                            </th>
+                            <th>
+                                <table class="free_used_tyresets_table">
+                                    <tr> <th> Free </th> <th> Used </th> </tr>
+                                    <tr> <td class="free_number"> 0 </td> <td class="used_number"> 0 </td> </tr>
+                                </table>
+                            </th>
+
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr id="session_useTyres_template" class="use_display">
+                <td class="uses_row_text"> Use tyre sets </td>
+                <td>
+                    <table style="width:100%">
+                        <tr>
+                            <td> <input class="overview_uses_number" type="number" value=0 /> </td>
+                            <td> <input class="overview_uses_number" type="number" value=0 /> </td>
+                            <td> <input class="overview_uses_number" type="number" value=0 /> </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr id="session_returnTyres_template" class="returns_display">
+                <td class="returns_row_text"> Return: x Tyresets </td>
+                <td>
+                    <table style="width:100%">
+                        <tr>
+                            <td> <input class="overview_returns_number" type="number" value=0 /> </td>
+                            <td> <input class="overview_returns_number" type="number" value=0 /> </td>
+                            <td> <input class="overview_returns_number" type="number" value=0 /> </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr id="race_session_display_template" class="session_display">
+                <td class="session_name" style="background-color: #b0b0b0">Race session</td>
+                <td>
+                    <!-- this will contain the table for displaying free/used tyre sets -->
+                    <table class="session_tyresets_table">
+                        <tr>
+                            <th class="session_table_name" style="background-color: #ff2b2b"> Soft </th>
+                            <th class="session_table_name" style="background-color: #fcba03"> Medium </th>
+                            <th class="session_table_name" style="background-color: #f0f0f0"> Hard </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <!--
+                                <table class="available_tyresets_table">
+                                  <tr> <th> Available </th> </tr>
+                                  <tr> <td> 0 </td> </tr>
+                                </table>
+                                -->
+                                <table class="free_used_tyresets_table">
+                                    <tr> <th> Free </th> <th> Used </th> </tr>
+                                    <tr> <td class="free_number"> 0 </td> <td class="used_number"> 0 </td> </tr>
+                                </table>
+                            </th>
+                            <th>
+                                <table class="free_used_tyresets_table">
+                                    <tr> <th> Free </th> <th> Used </th> </tr>
+                                    <tr> <td class="free_number"> 0 </td> <td class="used_number"> 0 </td> </tr>
+                                </table>
+                            </th>
+                            <th>
+                                <table class="free_used_tyresets_table">
+                                    <tr> <th> Free </th> <th> Used </th> </tr>
+                                    <tr> <td class="free_number"> 0 </td> <td class="used_number"> 0 </td> </tr>
+                                </table>
+                            </th>
+
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </table>
+
+        <span id="4-dangertext" class="text-danger"></span>
+    </div>
+
+    <div>
+        <p class="question_title">5. Save - Would you like to save this for the race weekend, or keep as a pre-set?</p>
+
+        <button id="save_weekend">Save as race weekend</button>
+        <button id="save_preset_weekend">Save as pre-set weekend</button>
+
+        <span id="5-dangertext" class="text-danger"></span>
+    </div>
+
+</div>
+
+<!-- The CSS from the Edit page -->
+<link rel="stylesheet" type="text/css" href="~/css/raceWeekendEditorStyle.css" media="all">
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <!-- The JS from the Edit page -->
+    <script type="text/javascript" src="~/js/raceWeekendEditor.js"></script>
+    <script>
+        showDetailsOnPage("Create");
+    </script>
+}
